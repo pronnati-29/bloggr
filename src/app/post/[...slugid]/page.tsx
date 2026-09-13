@@ -27,7 +27,7 @@ export default function PostDetailPage() {
       setLoading(false);
       return;
     }
-    fetch(` process.env.NEXT_PUBLIC_API_URL/api/posts/getbyid/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/getbyid/${id}`)
       .then((res) => {
         if (!res.ok) {
             if (res.status === 400) throw new Error("Invalid Post ID format");
