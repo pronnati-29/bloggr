@@ -39,8 +39,8 @@ export default function CreatePostForm() {
         throw new Error(data.msg || data.errors?.[0]?.msg || "Failed to create post");
       }
       router.push('/dashboard');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Failed to create post");
     } finally {
       setLoading(false);
     }

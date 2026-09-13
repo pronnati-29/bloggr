@@ -5,16 +5,27 @@ import PostCard from "@/components/shared/PostCard";
 import Pagination from "@/components/shared/Pagination";
 import { useSearchParams } from "next/navigation";
 
-function parseJwt(token: string) {
+interface Post {
+  _id: string;
+  title: string;
+  content: string;
+  author: {
+    _id: string;
+    email: string;
+  };
+  createdAt?: string;
+}
+
+function parseJwt(token: string): { user?: { id?: string } } | null {
   try {
     return JSON.parse(atob(token.split(".")[1]));
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
 export default function PostList() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const params = useSearchParams();

@@ -3,12 +3,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
+interface Post {
+  title: string;
+  content: string;
+  createdAt: string;
+  author?: {
+    email?: string;
+  };
+}
+
 export default function PostDetailPage() {
   const params = useParams();
   const slugParams = params.slugid as string[];
   const id = slugParams?.[slugParams.length - 1];
 
-  const [post, setPost] = useState<any>(null);
+  const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -57,4 +66,4 @@ export default function PostDetailPage() {
       </div>
     </div>
   );
-} 
+}

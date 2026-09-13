@@ -1,5 +1,4 @@
 import Navbar from '@/components/shared/Navbar';
-import Footer from '@/components/shared/Footer';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
@@ -15,8 +14,13 @@ interface Post {
   excerpt?: string;
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const post = await getPost(params.id);
+type PostPageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const post = await getPost(id);
   
   if (!post) {
     return {
@@ -77,8 +81,9 @@ async function getPost(id: string): Promise<Post | null> {
   }
 }
 
-export default async function PostPage({ params }: { params: { id: string } }) {
-  const post = await getPost(params.id);
+export default async function PostPage({ params }: PostPageProps) {
+  const { id } = await params;
+  const post = await getPost(id);
 
   if (!post) {
     notFound();

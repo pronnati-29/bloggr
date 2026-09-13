@@ -1,6 +1,7 @@
 import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
 import BloggrFeedPage from "@/components/home/Feed";
+
+export const dynamic = "force-dynamic";
 
 async function getPosts() {
   try {

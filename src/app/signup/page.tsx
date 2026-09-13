@@ -44,8 +44,8 @@ export default function SignUpPage() {
       setSuccess("Signup successful! Redirecting...");
       router.push("/");
 
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Signup failed");
     } finally {
       setLoading(false);
     }
